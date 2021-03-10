@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">车间报警信息跟踪</string>
+    <string name="room_first">一科</string>
+    <string name="room_second">二科</string>
+    <string name="login_account">账 号：</string>
+    <string name="login_pwd">密 码：</string>
+    <string name="spinner_rooms">科室</string>
+    <string name="spinner_device_num">设备号</string>
+    <string name="spinner_spindle_side">锭位</string>
+    <string name="spinner_fault_type">故障类别</string>
+</resources>
