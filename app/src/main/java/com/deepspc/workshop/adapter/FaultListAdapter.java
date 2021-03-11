@@ -86,11 +86,12 @@ public class FaultListAdapter extends BaseAdapter {
     }
 
     public void allCheck() {
-        datas.clear();
         if (null == datas || datas.isEmpty()) {
             for (FaultItem item : itemList) {
                 datas.put(Integer.parseInt(item.getId()), item);
             }
+        } else {
+            datas.clear();
         }
     }
 }

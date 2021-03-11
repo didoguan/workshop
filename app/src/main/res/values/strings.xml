@@ -6,6 +6,6 @@
     <string name="login_pwd">密 码：</string>
     <string name="spinner_rooms">科室</string>
     <string name="spinner_device_num">设备号</string>
-    <string name="spinner_spindle_side">锭位</string>
+    <string name="spinner_spindle_side">锭位面</string>
     <string name="spinner_fault_type">故障类别</string>
 </resources>

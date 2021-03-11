@@ -1,6 +1,9 @@
 package com.deepspc.workshop.ui.main;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +14,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -103,15 +107,37 @@ public class RoomsFragment extends Fragment {
             FaultItem item = new FaultItem(i + "", r.nextInt(40) +"#故障", "11:21");
             listItems.add(item);
         }
-        FaultListAdapter faultListAdapter = new FaultListAdapter(getActivity(), listItems);
+        final FaultListAdapter faultListAdapter = new FaultListAdapter(getActivity(), listItems);
+        listView.setAdapter(faultListAdapter);
+        //全选
         Button selectAll = view.findViewById(R.id.select_all);
-        selectAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                faultListAdapter.allCheck();
+        selectAll.setOnClickListener(v -> {
+            faultListAdapter.allCheck();
+            faultListAdapter.notifyDataSetChanged();
+        });
+        //确认
+        Button btConfirm = view.findViewById(R.id.btn_confirm);
+        btConfirm.setOnClickListener(v -> {
+            List<FaultItem> checked = faultListAdapter.getCheckedData();
+            if (null == checked || checked.isEmpty()) {
+                Toast toast = Toast.makeText(getActivity(), "请选择具体故障", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+            } else {
+                String[] items = new String[]{"原丝不良","纸管不良","罗拉缠丝","丝道不良","原丝不足","机械故障","电气故障"};
+                AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
+                        .setSingleChoiceItems(items, 0, (dialog, which) -> {
+                            //添加单选框
+                        }).setPositiveButton("确定", (dialog, which) -> {
+                            faultListAdapter.allCheck();
+                            faultListAdapter.notifyDataSetChanged();
+                        }).setNegativeButton("取消", (dialog, which) -> {
+                            faultListAdapter.allCheck();
+                            faultListAdapter.notifyDataSetChanged();
+                        }).create();
+                alertDialog.show();
             }
         });
-        listView.setAdapter(faultListAdapter);
     }
 
 }
